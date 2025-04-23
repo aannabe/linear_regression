@@ -23,3 +23,17 @@ void DenseMatrix::print() const {
         std::cout << "\n";
     }
 }
+
+// Transpose method
+std::unique_ptr<DenseMatrix> DenseMatrix::transpose() const {
+    // Note: transpose has cols * rows
+    auto result = std::make_unique<DenseMatrix>(this->cols, this->rows);
+
+    for (int i = 0; i < this->rows; ++i) {
+        for (int j = 0; j < this->cols; ++j) {
+            result->set(j, i, this->get(i, j));
+        }
+    }
+
+    return result;
+}

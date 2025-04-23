@@ -14,6 +14,8 @@ public:
     double get(int r, int c) const override;
     void set(int r, int c, double value) override;
     void print() const override;
+
+    std::unique_ptr<DenseMatrix> transpose() const;
 };
 
 #endif // DENSE_MATRIX_HH

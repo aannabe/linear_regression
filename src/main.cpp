@@ -15,6 +15,10 @@ int main() {
     auto C = MatrixOperations::multiply(A, B);
     C->print();
 
+    A.print();
+    auto At = A.transpose();
+    At->print();
+
     return 0;
 }
 
