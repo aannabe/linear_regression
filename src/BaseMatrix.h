@@ -1,11 +1,13 @@
 #ifndef BASE_MATRIX_H
 #define BASE_MATRIX_H
 
+#include <cstdlib>
+#include <iostream>
+#include <vector>
+
 // Abstract base class that defines a general interface for all matrix-like structures.
 // Any class inheriting this must implement the pure virtual functions.
 
-// Template class: T is the type of matrix elements (e.g., int, float, double)
-template<typename T>
 class BaseMatrix {
 protected:
     int rows, cols; // All matrix types will have these data members.
@@ -21,10 +23,10 @@ public:
 
     // Gets the value at the given (row, col) position.
     // const-qualified since it doesn’t modify the matrix.
-    virtual T get(int row, int col) const = 0;
+    virtual double get(int row, int col) const = 0;
 
     // Sets the value at the given (row, col) position.
-    virtual void set(int row, int col, T value) = 0;
+    virtual void set(int row, int col, double value) = 0;
 
     // Utility function to print the matrix to the console.
     virtual void print() const = 0;
