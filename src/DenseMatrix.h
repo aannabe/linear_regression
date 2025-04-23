@@ -16,6 +16,9 @@ public:
     void print() const override;
 
     std::unique_ptr<DenseMatrix> transpose() const;
+
+    std::unique_ptr<DenseMatrix> inverse() const;
+
 };
 
 #endif // DENSE_MATRIX_HH

@@ -37,3 +37,52 @@ std::unique_ptr<DenseMatrix> DenseMatrix::transpose() const {
 
     return result;
 }
+
+std::unique_ptr<DenseMatrix> DenseMatrix::inverse() const {
+    // For inverse to exist, it needs to:
+    //    1) Have n x n square form
+    //    2) Be non-singular (det(A) != 0)
+
+    if (this-> rows != this->cols)
+        throw std::runtime_error("Matrix must be square to compute the inverse!");
+
+    int n = this->rows;
+    DenseMatrix augmented(n, 2 * n); // augmented matrix that holds [A | I]
+
+    // Step 1: Form [A | I]
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            augmented.set(i, j, this->get(i, j)); // Copying A
+        }
+        augmented.set(i, n + i, 1.0); // Add identity
+    }
+
+    // Step 2: Gauss-Jordan elimination
+    for (int i = 0; i < n; ++i) {
+        double pivot = augmented.get(i, i);
+        if (pivot == 0.0)
+            throw std::runtime_error("Matrix is singular and can not be inverted!");
+
+        // Normalize pivot row
+        for (int j = 0; j < 2 * n; ++j)
+            augmented.set(i, j, augmented.get(i, j) / pivot);
+
+        // Eliminate other rows
+        for (int k = 0; k < n; ++k) {
+            if (k == i) continue;
+            double factor = augmented.get(k, i);
+            for (int j = 0; j < 2 * n; ++j) {
+                double value = augmented.get(k, j) - factor * augmented.get(i, j);
+                augmented.set(k, j, value);
+            }
+        }
+    }
+
+    // Step 3: Extract right half as the invere
+    auto inverse = std::make_unique<DenseMatrix>(n, n);
+    for (int i = 0; i < n; ++i)
+        for (int j = 0; j < n; ++j)
+            inverse->set(i, j, augmented.get(i, n + j));
+    return inverse;
+}
+
