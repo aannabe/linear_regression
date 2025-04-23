@@ -1,5 +1,6 @@
 #include "DenseMatrix.h"
 
+// Constructor
 DenseMatrix::DenseMatrix(int r, int c) : BaseMatrix(r, c), data(r, std::vector<double>(c, 0.0)) {}
 // Syntax for initializing a 2D matrix with 0 initial values:
 // std::vector<std::vector<double>> name(ROW_COUNT, std::vector<double>(COLUMN_COUNT));

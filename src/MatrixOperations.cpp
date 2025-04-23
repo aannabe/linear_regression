@@ -1,10 +1,8 @@
-#include <stdexcept>
 #include "MatrixOperations.h"
 #include "DenseMatrix.h"
 
 // Multiply two matrices A * B and return result as a new matrix.
-// Uses virtual methods to interact with the unknown matrix types.
-std::unique_ptr<BaseMatrix> MatrixOperations::multiply(const BaseMatrix& A, const BaseMatrix& B) {
+std::unique_ptr<DenseMatrix> MatrixOperations::multiply(const DenseMatrix& A, const DenseMatrix& B) {
     // Check dimensions match: (A.cols must == B.rows)
     if (A.numCols() != B.numRows())
         throw std::invalid_argument("Incompatible matrix dimensions");

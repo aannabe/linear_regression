@@ -4,8 +4,10 @@
 #include <cstdlib>
 #include <iostream>
 #include <vector>
+#include <memory> // For std::unique_ptr
+#include <stdexcept>
 
-// Abstract base class that defines a general interface for all matrix-like structures.
+// Abstract base class that defines a general interface for all matrix-like structures (eg, dense vs. sparse).
 // Any class inheriting this must implement the pure virtual functions.
 
 class BaseMatrix {
@@ -21,6 +23,9 @@ public:
     // = default means use the compiler-generated destructor.
     virtual ~BaseMatrix() = default;
 
+    // The below get() and set() methods need to be virtual since BaseMatrix class will not hold matrix data.
+    // Actual data will be hold by the derived classes, which will need to implement these methods themselves.
+
     // Gets the value at the given (row, col) position.
     // const-qualified since it doesn’t modify the matrix.
     virtual double get(int row, int col) const = 0;
@@ -29,6 +34,8 @@ public:
     virtual void set(int row, int col, double value) = 0;
 
     // Utility function to print the matrix to the console.
+    // It is virtual since dense vs. sparse matrix printing could use different print behavior.
+    // It needs to be implemented (via overriding) for each dense and sparse matrices separately.
     virtual void print() const = 0;
 
     // Below two functions get the number of rows and columns.
