@@ -25,3 +25,27 @@ std::unique_ptr<DenseMatrix> MatrixOperations::multiply(const DenseMatrix& A, co
 
     return result; // Return smart pointer; no need to manually delete
 }
+
+std::unique_ptr<DenseMatrix> MatrixOperations::linearRegression(const DenseMatrix& X, const DenseMatrix& Y) {
+    // Y = X*beta + err
+    // Y:    [n x 1] (n: number of observations)
+    // X:    [n x p] (p: number of regressors)
+    // beta: [p x 1]
+    // beta = (X^T X)^{-1} (X^T Y)
+
+    // Check dimensions:
+    if (X.numRows() != Y.numRows())
+        throw std::invalid_argument("Incompatible X and Y matrices for linear regression!");
+
+    auto Xt = X.transpose();
+
+    auto XtX = MatrixOperations::multiply(*Xt, X);
+
+    auto XtX_inv = XtX->inverse();
+
+    auto XtY = MatrixOperations::multiply(*Xt, Y);
+
+    auto beta = MatrixOperations::multiply(*XtX_inv, *XtY);
+
+    return beta;
+}
