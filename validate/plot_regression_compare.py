@@ -20,8 +20,8 @@ py_weight = model.coef_[0]
 print(f"Python model: y = {py_bias:.3f} + {py_weight:.3f} * x")
 
 # C++ regression results
-cpp_bias = 5.08998     # e.g., beta[0]
-cpp_weight = -3.39913   # e.g., beta[1]
+cpp_bias = 5.2104
+cpp_weight = -3.51561
 
 print(f"C++ model:    y = {cpp_bias:.3f} + {cpp_weight:.3f} * x")
 

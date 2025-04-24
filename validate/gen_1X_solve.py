@@ -13,10 +13,11 @@ true_beta = [-3.5]  # Coefficients for X1, X2, X3
 bias = 5.0
 
 # Generate random features
-X = np.random.randn(n_samples, 1)
+X = np.random.rand(n_samples, 1)
+X = X * 10
 
 # Generate target with noise
-noise = np.random.normal(0, 1.0, size=n_samples)
+noise = np.random.normal(0, 2.0, size=n_samples)
 Y = bias + X @ true_beta + noise # @ is the matrix multiplication operator
 
 # Combine y and X into one matrix for saving
