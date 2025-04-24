@@ -27,6 +27,10 @@ C++11 or later required.
 make
 ```
 
+## Inputs
+- The Y and X data are given in `data/data_Y_3X.csv`, where the first column is Y and the rest is X.
+- In `main.cpp`, the above csv file is read, and after `./linreg`, the $\beta$ values are printed.
+
 ## Design
 
 ### Classes:
