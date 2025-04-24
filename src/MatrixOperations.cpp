@@ -37,9 +37,21 @@ std::unique_ptr<DenseMatrix> MatrixOperations::linearRegression(const DenseMatri
     if (X.numRows() != Y.numRows())
         throw std::invalid_argument("Incompatible X and Y matrices for linear regression!");
 
-    auto Xt = X.transpose();
+    int rows = X.numRows();
+    int cols = X.numCols();
 
-    auto XtX = MatrixOperations::multiply(*Xt, X);
+    // Add the bias column to X (new matrix with an extra 1 column)
+    DenseMatrix X_bias(rows, cols + 1);
+    for (int i = 0; i < rows; ++i) {
+        X_bias.set(i, 0, 1.0); // Bias column
+        for (int j = 0; j < cols; ++j) {
+            X_bias.set(i, j + 1, X.get(i, j));
+        }
+    }
+
+    auto Xt = X_bias.transpose();
+
+    auto XtX = MatrixOperations::multiply(*Xt, X_bias);
 
     auto XtX_inv = XtX->inverse();
 
