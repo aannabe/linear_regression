@@ -41,7 +41,7 @@ std::unique_ptr<DenseMatrix> DenseMatrix::transpose() const {
 std::unique_ptr<DenseMatrix> DenseMatrix::inverse() const {
     // For inverse to exist, it needs to:
     //    1) Have n x n square form
-    //    2) Be non-singular (det(A) != 0)
+    //    2) Be non-singular (invertible, det(A) != 0)
 
     if (this-> rows != this->cols)
         throw std::runtime_error("Matrix must be square to compute the inverse!");
@@ -60,8 +60,26 @@ std::unique_ptr<DenseMatrix> DenseMatrix::inverse() const {
     // Step 2: Gauss-Jordan elimination
     for (int i = 0; i < n; ++i) {
         double pivot = augmented.get(i, i);
-        if (pivot == 0.0)
+        if (pivot == 0.0) {
+        // if pivot is 0, we need to push it lower by exchanging with another row:
+        bool found = false;
+        for (int y = i + 1; y < n; ++y) {
+            if (augmented.get(y, i) != 0) {
+                // Swap rows:
+                for (int x = 0; x < 2 * n; ++x) {
+                    double c1 = augmented.get(i, x);
+                    double c2 = augmented.get(y, x);
+                    augmented.set(i, x, c2);
+                    augmented.set(y, x, c1);
+                }
+                pivot = augmented.get(i, i);
+                found = true;
+                break;
+            }
+        }
+        if(!found)
             throw std::runtime_error("Matrix is singular and can not be inverted!");
+        }
 
         // Normalize pivot row
         for (int j = 0; j < 2 * n; ++j)

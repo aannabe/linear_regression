@@ -14,8 +14,8 @@ int main() {
     B.set(1, 0, 9.0f);  B.set(1, 1, 10.0f);
     B.set(2, 0, 11.0f); B.set(2, 1, 12.0f);
 
-    C.set(0, 0, 1.0f); C.set(0, 1, 3.0f);
-    C.set(1, 0, 2.0f); C.set(1, 1, 5.0f);
+    C.set(0, 0, 1.0f); C.set(0, 1, 1.0f);
+    C.set(1, 0, 0.0f); C.set(1, 1, 1.0f);
 
     auto D = MatrixOperations::multiply(A, B);
     //D->print();
