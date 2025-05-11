@@ -17,6 +17,7 @@ void DenseMatrix::set(int r, int c, double value) {
 
 // Print matrix
 void DenseMatrix::print() const {
+    std::cout.precision(12);
     for (const auto& row : data) {
         for (const auto& val : row)
             std::cout << val << " ";

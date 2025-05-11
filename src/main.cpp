@@ -30,7 +30,7 @@ int main() {
     DenseMatrix X(1, 1);
     DenseMatrix Y(1, 1);
 
-    loadCSV("data/data_Y3X.csv", X, Y);
+    loadCSV("data/data_y_beta.csv", X, Y);
 
     auto beta = MatrixOperations::linearRegression(X, Y);
     std::cout << "Beta Coefficients: \n";
