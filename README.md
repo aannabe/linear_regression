@@ -26,6 +26,8 @@ $n~$: number of samples or observations,
 $p~$: number of features,   
 $\varepsilon~$: error in the model.
 
+Derivation of the normal equation: [Video](https://youtu.be/zRIXAC-0yIY?si=sW2O8pCfUe8sjrBI).
+
 The $(X^T X)^{-1}$ inverse matrix is computed using the Gauss-Jordan elimination method.
 This is only for demonstration purposes and is not recommended in practice due to numerical instability.
 SVD or QR decomposition approaches are generally recommended.
